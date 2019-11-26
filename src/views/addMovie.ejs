@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Patient Manager</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="css/util.css">
+	<link rel="stylesheet" type="text/css" href="/main.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+		crossorigin="anonymous"></script>
+	
+</head>
+
+<body>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<a class="navbar-brand" href="#">
+		</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item">
+					<a class="nav-link" href="#">Patient Manager </a>
+				</li>
+				<li class="nav-item ">
+					<a class="nav-link" href="/search">Search</a>
+				</li>
+				<li class="nav-item active">
+					<a class="nav-link" href="/patients">Add Patient</a>
+				</li>
+				<li class="nav-item">
+					<a href="/schedule" class="nav-link">Schedule Appointment</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/allpatients">All Patients</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" onclick="logOut()" href="/">Log Out</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+
+	<div class="container-contact100" style="margin-top: -20px">
+		<div class="wrap-contact100">
+			<form id="movieForm" class="contact100-form validate-form" method="POST">
+				<span class="contact100-form-title">
+					Enter Movie Information
+				</span>
+
+				<div class="wrap-input100  bg1">
+					<span class="label-input100">Movie Title *</span>
+					<input class="input100" id="name" type="text" name="name" placeholder="Enter Movie Title" required>
+				</div>
+
+				<div class="wrap-input100  bg1 rs1-wrap-input100">
+					<span class="label-input100">Rating *</span>
+					<input class="input100" type="text" name="rating" id="rating" placeholder="Enter Movie Rating" required>
+				</div>
+
+				<div class="wrap-input100 bg1 rs1-wrap-input100">
+					<span class="label-input100">Release Year *</span>
+					<input class="input100" id="year" type="text" name="year" placeholder="Enter Movie Release Year"
+						required>
+				</div>
+
+				<div class="wrap-input100  bg1">
+					<span class="label-input100">Director *</span>
+					<input class="input100" id="director" type="text" name="director" placeholder="Enter Movie Directors"
+						required>
+				</div>
+
+				<div class="container-contact100-form-btn">
+					<button class="contact100-form-btn" type="submit">
+						<span>
+							Submit
+							<i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+						</span>
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+</body>
+<script>
+	document.addEventListener("DOMContentLoaded", () => {
+		const theForm = document.getElementById("movieForm");
+		theForm.addEventListener("submit", (event) => {
+			let name = document.getElementById("name").value;
+			event.preventDefault();
+			let rating = document.getElementById("rating").value;
+			let release = document.getElementById("year").value;
+			let directors = document.getElementById("director").value;
+			const token = localStorage.getItem('token');
+			const bearer = 'Bearer ' + token
+			fetch('http://localhost:3000/api/movie', {
+				method: "post",
+				headers: {
+					'Authorization': bearer,
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					name: name,
+					rating: rating,
+					release: release,
+					directors: directors,
+				})
+			})
+				.then(res => res.json())
+				.then(response => {
+                    console.log(response)
+					// location.replace("http://localhost:8080/allpatients")
+				}).catch(error => console.error('Error:', error));
+		})
+	});
+</script>
+
+</html>

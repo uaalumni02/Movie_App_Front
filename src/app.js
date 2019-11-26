@@ -14,8 +14,13 @@ app.use(bodyParser.json());
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(__dirname + '/views'))
 
+app.get('/', (req, res) => {
+    return res.render('login')
+});
 
-
+app.get('/movies', (req, res) => {
+    return res.render('addMovie')
+});
 
 
 app.listen(port, () => console.log('server is running'));
