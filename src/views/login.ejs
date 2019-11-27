@@ -53,15 +53,14 @@
             })
                 .then(res => res.json())
                 .then(response => {
+                    if (!response.success) {
+                        document.getElementById("pswdNotification").style.display = "block";
+                        return;
+                    }
                     localStorage.setItem('token', response.data.token);
                     localStorage.setItem('user', response.data.user._id);
-                    const password = response.data.token
-                    const localStoragePswd = localStorage.getItem('token', response.data.token);
-                    if (password === localStoragePswd) {
-                        window.location.replace('http://localhost:8080/allMovies/' + response.data.user._id);
-                    } else {
-                        document.getElementById("pswdNotification").style.display = "block";
-                    }
+                    window.location.replace('http://localhost:8080/allMovies/' + response.data.user._id);
+
                 })
                 .catch(error => console.error('Error:', error));
             $('#LoginForm').get(0).reset();
