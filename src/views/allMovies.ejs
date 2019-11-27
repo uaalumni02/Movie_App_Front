@@ -36,9 +36,6 @@
         <li class="nav-item">
           <a class="nav-link" href="">Update</a>
         </li>
-        <li class="nav-item">
-          <a href="/" class="nav-link">Delete</a>
-        </li>
         <li class="nav-item active">
           <a class="nav-link" href="/">All Movies</a>
         </li>
@@ -64,7 +61,7 @@
     const userId = url.substring(url.lastIndexOf('/') + 1)
     const token = localStorage.getItem('token');
     const bearer = 'Bearer ' + token
-    fetch('http://localhost:3000/api/movie/', {
+    fetch('http://localhost:3000/api/movie/' + userId, {
       method: "GET",
       headers: {
         'Authorization': bearer,
@@ -72,24 +69,24 @@
     })
       .then(res => res.json())
       .then(response => {
-          console.log(response)
         let html = '';
+        for (var i = 0; i < response.data.length; i++) {
           html += ` <div class="card single-movie-card">`
           html += `<div class="card-body">`
           html += `
               <p class="text-center data-label"> Title </p>
-              <h3 class="text-center data-title"> ${response.data.name} </h3>
+              <h3 class="text-center data-title"> ${response.data[i].name} </h3>
               `;
-          html += `<h6>  Rating: ${response.data.rating}  </h6>`;
-          html += `<h6>  Realease Year: ${response.data.release} </h6>`;
-          html += `<h6>  Directors: ${response.data.directors} </h6>`;
+          html += `<h6>  Rating: ${response.data[i].rating}  </h6>`;
+          html += `<h6>  Realease Year: ${response.data[i].release} </h6>`;
+          html += `<h6>  Directors: ${response.data[i].directors} </h6>`;
           html += `<br>`
           html += `</br>`
           html += `<center>`
           html += `</center>`
           html += `</div>`;
           html += `</div>`;
-        
+          }
         const movieContainer = document.getElementById("movie");
         movieContainer.innerHTML = html;
       })

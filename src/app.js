@@ -28,7 +28,7 @@ app.get('/movie/:id', (req, res) => {
 app.get('/update/:id', (req, res) => {
     return res.render('updateMovie')
 });
-app.get('/allMovies/', (req, res) => {
+app.get('/allMovies/:id', (req, res) => {
     return res.render('allMovies')
 });
 
