@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-	<title>Patient Manager</title>
+	<title>Movie App</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="css/util.css">
@@ -119,8 +119,7 @@
 			})
 				.then(res => res.json())
 				.then(response => {
-                    console.log(response)
-					// location.replace("http://localhost:8080/allpatients")
+					location.replace("http://localhost:8080/allMovies/" + response.data._id)
 				}).catch(error => console.error('Error:', error));
 		})
 	});
