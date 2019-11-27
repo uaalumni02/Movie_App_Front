@@ -22,9 +22,7 @@ app.get('/', (req, res) => {
 app.get('/movies', (req, res) => {
     return res.render('addMovie')
 });
-app.get('/movie/:id', (req, res) => {
-    return res.render('movie')
-});
+
 app.get('/update/:id', (req, res) => {
     return res.render('updateMovie')
 });

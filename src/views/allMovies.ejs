@@ -13,7 +13,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"></script>
-    
+
 </head>
 
 <body style="background-color: #eee">
@@ -31,10 +31,7 @@
           <a class="nav-link" href="#">Movie App </a>
         </li>
         <li class="nav-item ">
-          <a class="nav-link" href="">Add</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="">Update</a>
+          <a class="nav-link" href="/movies">Add</a>
         </li>
         <li class="nav-item active">
           <a class="nav-link" href="/">All Movies</a>
@@ -56,12 +53,13 @@
 <script src="/public/logOut.js"></script>
 
 <script>
+  let movieId = ''
   window.addEventListener("load", (req, res) => {
-    const url = window.location.pathname;
-    const userId = url.substring(url.lastIndexOf('/') + 1)
     const token = localStorage.getItem('token');
+    const userId = localStorage.getItem('user');
+
     const bearer = 'Bearer ' + token
-    fetch('http://localhost:3000/api/movie/' + userId, {
+    fetch('http://localhost:3000/api/movie2/' + userId, {
       method: "GET",
       headers: {
         'Authorization': bearer,
@@ -71,6 +69,7 @@
       .then(response => {
         let html = '';
         for (var i = 0; i < response.data.length; i++) {
+          movieId = response.data[i]._id
           html += ` <div class="card single-movie-card">`
           html += `<div class="card-body">`
           html += `
@@ -83,15 +82,42 @@
           html += `<br>`
           html += `</br>`
           html += `<center>`
+          html += `<div id="searchId">`
+          html += `<a  type="submit" href="/update/${response.data[i]._id}">Edit Movie</a>`
+          html += `<br>`
+          html += `</br>`
+          html += `<button  type="submit" onClick="deleteMovie()" >Delete Movie</button>`
+          html += `</div>`
           html += `</center>`
           html += `</div>`;
           html += `</div>`;
-          }
+        }
         const movieContainer = document.getElementById("movie");
         movieContainer.innerHTML = html;
       })
       .catch(error => console.error('Error:', error));
   })
+</script>
+<script>
+
+  const deleteMovie = () => {
+    const url = window.location.pathname;
+    const id = url.substring(url.lastIndexOf('/') + 1)
+    const token = localStorage.getItem('token');
+    const bearer = 'Bearer ' + token
+    fetch('http://localhost:3000/api/movie/' + movieId, {
+      method: "DELETE",
+      headers: {
+        'Authorization': bearer,
+      }
+    })
+      .then(res => res.json())
+      .then(response => {
+        location.reload();
+      })
+      .catch(error => console.error('Error:', error));
+  }
+
 </script>
 
 
