@@ -22,12 +22,14 @@ app.get('/', (req, res) => {
 app.get('/movies', (req, res) => {
     return res.render('addMovie')
 });
-app.get('/allmovies/:id', (req, res) => {
-    return res.render('allMovies')
+app.get('/movie/:id', (req, res) => {
+    return res.render('movie')
 });
 app.get('/update/:id', (req, res) => {
     return res.render('updateMovie')
 });
-
+app.get('/allMovies/', (req, res) => {
+    return res.render('allMovies')
+});
 
 app.listen(port, () => console.log('server is running'));

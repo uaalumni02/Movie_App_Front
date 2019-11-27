@@ -119,7 +119,7 @@
 			})
 				.then(res => res.json())
 				.then(response => {
-					location.replace("http://localhost:8080/allMovies/" + response.data._id)
+					location.replace("http://localhost:8080/movie/" + response.data._id)
 				}).catch(error => console.error('Error:', error));
 		})
 	});
