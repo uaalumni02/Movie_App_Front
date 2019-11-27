@@ -26,7 +26,11 @@ a {
   -o-transition: all 0.4s;
   -moz-transition: all 0.4s;
 }
-
+.nav-link {
+  padding: 20px;
+    font-size: 18px;
+    font-weight: 700;
+}
 a:focus {
     outline: none !important;
 }
@@ -52,7 +56,6 @@ ul, li {
     margin: 0px;
     list-style-type: none;
 }
-
 
 /*---------------------------------------------*/
 input {

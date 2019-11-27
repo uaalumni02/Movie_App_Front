@@ -15,21 +15,21 @@
     <div style="background-color:  #ffffff" style="border-top: 3px solid rgb(219, 219, 219)" class="jumbotron">
         <h1 style="text-align: center" class="display-4">Movie App</h1>
         <p style="text-align: center" class="lead">Compiling all of your Favorite Movie Data. </p>
-    <!-- </div> -->
-    <div id="loginWrapper" class="wrapper">
-        <form id="LoginForm" class="form-signin">
-            <h2 class="form-signin-heading">Please login</h2>
-            <input type="text" class="form-control" id="username" name="username" placeholder="User Name" required=""
-                autofocus="" />
-            <input type="password" class="form-control" id="password" name="password" placeholder="Password"
-                required="" />
-            <label class="checkbox">
+        <!-- </div> -->
+        <div id="loginWrapper" class="wrapper">
+            <form id="LoginForm" class="form-signin">
+                <h2 class="form-signin-heading">Please login</h2>
+                <input type="text" class="form-control" id="username" name="username" placeholder="User Name"
+                    required="" autofocus="" />
+                <input type="password" class="form-control" id="password" name="password" placeholder="Password"
+                    required="" />
+                <label class="checkbox">
                     <a href=""></a>
-            </label>
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
-        </form>
+                </label>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+            </form>
+        </div>
     </div>
-</div>
     <div id="pswdNotification">
         <p style="text-align: center">Incorrect Password</p>
     </div>
@@ -56,14 +56,14 @@
                     localStorage.setItem('token', response.data.token);
                     localStorage.setItem('user', response.data.user._id);
                     const password = response.data.token
-                    console.log(password)
                     const localStoragePswd = localStorage.getItem('token', response.data.token);
                     if (password === localStoragePswd) {
                         window.location.replace('http://localhost:8080/allMovies/' + response.data.user._id);
                     } else {
                         document.getElementById("pswdNotification").style.display = "block";
                     }
-                }).catch(error => console.error('Error:', error));
+                })
+                .catch(error => console.error('Error:', error));
             $('#LoginForm').get(0).reset();
         })
     });
